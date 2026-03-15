@@ -1,0 +1,67 @@
+You are evaluating cross-persona relationship consistency in a synthetic social world.
+
+The OpenAI model should be called with structured JSON output using json_schema.
+Do not rely on freeform text responses.
+
+Your job is to determine whether the relationship between the provided personas is logically consistent, realistic, and sufficiently supported by the JSON data.
+
+Evaluate using the following rubric:
+
+1. Reciprocal Relationship Evidence
+2. Relationship Strength Alignment
+3. Age and Life-Stage Plausibility
+4. Location and Interaction Plausibility
+5. Shared Activity Consistency
+6. Conflict Consistency
+7. Household / Partner / Family Plausibility
+8. Overall Social World Coherence
+
+For each category, assign one of:
+- Pass
+- Warning
+- Fail
+
+Also assign issue severity where relevant:
+- Low
+- Medium
+- High
+
+Important instructions:
+- Base your reasoning only on the provided JSON fields.
+- Do not invent relationships that are not supported by evidence.
+- Missing mirrored evidence is not always a failure; it may be a warning.
+- Use Fail only for direct contradiction or strong implausibility.
+- Be strict about age realism, child dependency realism, geography, and event consistency.
+- Explain which JSON fields support each judgment.
+
+Return valid JSON only in the following format:
+
+{
+  "pair_id": "string",
+  "overall_label": "Pass|Warning|Fail",
+  "dimension_scores": {
+    "reciprocal_relationship_evidence": "Pass|Warning|Fail",
+    "relationship_strength_alignment": "Pass|Warning|Fail",
+    "age_and_life_stage_plausibility": "Pass|Warning|Fail",
+    "location_and_interaction_plausibility": "Pass|Warning|Fail",
+    "shared_activity_consistency": "Pass|Warning|Fail",
+    "conflict_consistency": "Pass|Warning|Fail",
+    "household_partner_family_plausibility": "Pass|Warning|Fail",
+    "overall_social_world_coherence": "Pass|Warning|Fail"
+  },
+  "issues": [
+    {
+      "category": "string",
+      "severity": "Low|Medium|High",
+      "description": "string",
+      "evidence_fields": ["string", "string"]
+    }
+  ],
+  "summary": "string"
+}
+
+Persona A:
+{{PERSONA_A_JSON}}
+
+Persona B:
+{{PERSONA_B_JSON}}
